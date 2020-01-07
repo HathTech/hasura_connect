@@ -317,7 +317,8 @@ class HasuraConnectBase implements HasuraConnect {
       var response =
           await client.post(url, body: jsonString, headers: headersLocal);
       Map json = jsonDecode(response.body);
-      print(response);
+      print("${response.statusCode}");
+      print("$json");
       if (response.statusCode == 200) {
         if (hash != null) {
           await _localStorageMutation.remove(hash);
@@ -331,6 +332,7 @@ class HasuraConnectBase implements HasuraConnect {
         throw HasuraError("connection error", null);
       }
     } catch (r) {
+      print("Error in calling $r");
       throw HasuraError("connection error", null);
     } finally {
       client.close();
